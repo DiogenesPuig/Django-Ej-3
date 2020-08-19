@@ -2,10 +2,25 @@ from django.contrib import admin
 from biblioteca.models import *
 
 # Register your models here.
+class PrestamoInline(admin.TabularInline):
+    model = Prestamo
+
 class MaterialAdmin(admin.ModelAdmin):
     list_display = ('codigo','autor','titulo','status')
     list_display_links = ('codigo', 'autor', 'titulo', 'status')
     search_fields = ['autor','titulo',]
+    inlines = [PrestamoInline, ]
+    actions = ['Cambiar_Disponible','Cambiar_SinStock',]
+
+    def Cambiar_Disponible(self, request, queryset):
+        return queryset.update(status='Disponible')
+
+    Cambiar_Disponible.short_description = "Cambiar Estado a Disponible"
+
+    def Cambiar_SinStock(self, request, queryset):
+        return queryset.update(status='Sin_Stock')
+
+    Cambiar_SinStock.short_description = "Cambiar Estado a Sin Stock"
 
 class LibroAdmin(admin.ModelAdmin):
     list_display = ('codigo','autor','titulo','editorial','status')
@@ -35,6 +50,7 @@ class ProfesorAdmin(admin.ModelAdmin):
 class PrestamoAdmin(admin.ModelAdmin):
     list_display = ('id', 'persona', 'material')
     list_display_links = ('id', 'persona', 'material')
+
 
 admin.site.register(Material,MaterialAdmin)
 admin.site.register(Libro,LibroAdmin)
