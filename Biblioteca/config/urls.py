@@ -15,9 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include,path
-from django.conf.urls import url
+from django.conf.urls import url,static
+#from config import settings
 
 urlpatterns = [
+
     url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
     url(r'^admin/', admin.site.urls)
 ]
+
+#if settings.DEGUG:
+#    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+#    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
