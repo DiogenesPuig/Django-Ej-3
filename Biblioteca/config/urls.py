@@ -19,9 +19,10 @@ from django.conf.urls import url,static
 #from config import settings
 
 urlpatterns = [
-
     url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
+    url(r'',include('biblioteca.urls')),
     url(r'^admin/', admin.site.urls)
+
 ]
 
 #if settings.DEGUG:
